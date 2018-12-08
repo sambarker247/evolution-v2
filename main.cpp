@@ -1,3 +1,6 @@
+// SEGFAULT from vector access in makeAgent
+// doesnt print agent things properly
+
 #include <iostream>
 #include <vector>
 #include <time.h>
@@ -55,7 +58,6 @@ Agent makeAgent() {
   return a;
 }
 
-/*
 vector<vector<Agent>> fillGrid(vector<vector<Agent>> arr) {
   int i, j;
   Agent current = makeAgent();
@@ -68,7 +70,6 @@ vector<vector<Agent>> fillGrid(vector<vector<Agent>> arr) {
   }
   return arr;
 }
-*/
 
 vector<vector<Agent>> initGrid(vector<vector<Agent>> arr) {
   int i, j;
@@ -85,10 +86,14 @@ vector<vector<Agent>> initGrid(vector<vector<Agent>> arr) {
 vector<vector<Agent>> placeAgents(vector<vector<Agent>> arr) {
   int i;
   int x, y;
+  cout << "making a" << endl;
   Agent a = makeAgent();
+  cout << "begin loop" << endl;
   for (i=0;i<=immigrationRate;i++) {
+    cout << "loop " << i << endl;
     x = a.xpos;
-    y = a.ypos
+    y = a.ypos;
+    cout << "vector access" << endl;
     arr[y][x] = a;
   }
   return arr;
@@ -101,9 +106,9 @@ int main() {
   cout << "Fill arr" << endl;
   arr = initGrid(arr);
   cout << "Place agents" << endl;
-  placeAgents(arr);
-  /* cout << arr[0][0].xpos << "," << arr[0][0].ypos << endl;
-  cout << arr[0][0].strat << "," << arr[0][0].colour << endl; */
+  fillGrid(arr); 
+  cout << arr[0][0].xpos << "," << arr[0][0].ypos << endl;
+  cout << arr[0][0].strat << "," << arr[0][0].colour << endl;
   cout << "End" << endl;
 }
 
